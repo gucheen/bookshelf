@@ -1,0 +1,17 @@
+<div class="container">
+    <h2 ng-bind-template="GC&#39;s Bookshelf: {{query}}" class="col-md-12">GC&lsquo;s Bookshelf</h2>
+    <div class="col-md-12">Search: <input ng-model="query">
+        Sort by:
+        <select ng-model="orderProp">
+            <option value="-year">Newest</option>
+            <option value="year">Oldest</option>
+        </select>
+    </div>
+    <ul class="col-md-12">
+        <li ng-repeat="book in books | filter:query | orderBy:orderProp" class="col-md-4 bookItem">
+            <a href="#/book/{{book.id}}"><img ng-src="{{book.imgUrl}}" class="img-rounded col-sm-4"></a>
+            <a href="#/books/{{book.id}}">Book Name: {{book.name}}</a>
+            <p>Book Description: {{book.description}}</p>
+        </li>
+    </ul>
+</div>

@@ -1,29 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="bookshelfApp" ng-controller="bookListCtrl">
+<html lang="en" ng-app="bookshelfApp">
     <head>
         <meta charset="utf-8">
         <title ng-bind-template="GC&#39;s Bookshelf: {{query}}">GC&lsquo;s Bookshelf</title>
-        <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.3/css/bootstrap.min.css"/>
-        <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
-        <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
-        <script src="http://cdn.staticfile.org/angular.js/1.2.5/angular.min.js"></script>
-        <script src="script/ctl.js"></script>
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="stylesheet/base.css"/>
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="lib/angular/angular.min.js"></script>
+        <script src="lib/angular/angular-route.min.js"></script>
+        <script src="script/app.js"></script>
+        <script src="script/controllers.js"></script>
     </head>
     <body>
-    <h2 ng-bind-template="GC&#39;s Bookshelf: {{query}}">GC&lsquo;s Bookshelf</h2>
-    <div>Search: <input ng-model="query">
-        Sort by:
-        <select ng-model="orderProp">
-            <option value="-year">Newest</option>
-            <option value="year">Oldest</option>
-        </select>
-    </div>
-        <ul>
-            <li ng-repeat="book in books | filter:query | orderBy:orderProp">
-                <a href="#/book/{{book.id}}"><img ng-src="{{book.imgUrl}}" class="img-thumbnail" width="140"></a>
-                <a href="#/books/{{book.id}}">Book Name: {{book.name}}</a>
-                <p>Book Description: {{book.description}}</p>
-            </li>
-        </ul>
+        <div ng-view></div>
     </body>
 </html>
