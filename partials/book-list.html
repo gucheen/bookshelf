@@ -10,8 +10,8 @@
     <ul class="col-md-12">
         <li ng-repeat="book in books | filter:query | orderBy:orderProp" class="col-md-4 bookItem">
             <a href="#/book/{{book.id}}"><img ng-src="{{book.imgUrl}}" class="img-rounded col-sm-4"></a>
-            <a href="#/books/{{book.id}}">Book Name: {{book.name}}</a>
-            <p>Book Description: {{book.description}}</p>
+            <a href="#/book/{{book.id}}">{{book.name}}</a>
+            <p>{{book.description}}</p>
         </li>
     </ul>
 </div>

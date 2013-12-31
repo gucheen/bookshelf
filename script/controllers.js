@@ -9,6 +9,8 @@ bookshelfControllers.controller('bookListCtrl',['$scope','$http',
     $scope.orderProp = '-year';
 }]);
 
-bookshelfControllers.controller('bookDetailCtrl',['$scope','$routeParams',function($scope,$routeParams){
-    $scope.bookId = $routeParams.bookId;
+bookshelfControllers.controller('bookDetailCtrl',['$scope','$routeParams','$http',function($scope,$routeParams,$http){
+    $http.get('books/' + $routeParams.bookId + '.json').success(function(data) {
+        $scope.book = data;
+    });
 }]);
