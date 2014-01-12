@@ -1,27 +1,32 @@
 <div class="container">
-    <h2 ng-bind-template="GC&#39;s Bookshelf: {{query}}" class="col-md-12">GC&lsquo;s Bookshelf</h2>
-    <div class="row col-md-12">
-        <div class="form-group col-md-4">
-            <label class="control-label col-md-2" for="bookSearch">Search: </label>
-            <div class="col-md-6">
-                <input ng-model="query" id="bookSearch" class="form-control col-md-6 input-sm">
+    <h2 ng-bind-template="Test Bookshelf: {{query}}" class="pure-u-1">GC&lsquo;s Bookshelf</h2>
+    <div class="row">
+        <form role="form" class="form-horizontal col-md-12 col-sm-12">
+            <div class="form-group col-md-6 col-sm-8">
+                <label class="col-md-3 col-sm-3 control-label" for="bookSearch">Search: </label>
+                <div class="col-md-9 col-sm-9">
+                    <input type="text" ng-model="query" class="form-control input-sm" id="bookSearch">
+                    <span class="help-block">Quick filter list with book's name or description.</span>
+                </div>
             </div>
-        </div>
-        <div class="form-group col-md-4">
-            <label class="control-label col-md-3" for="orderMode">Sort by:</label>
-            <div class="col-md-6">
-                <select ng-model="orderProp" id="orderMode" class="form-control col-md-6 input-sm">
-                    <option value="-year">Newest</option>
-                    <option value="year">Oldest</option>
-                </select>
+            <div class="form-group col-md-4 col-sm-4">
+                <label class="col-md-3 col-sm-5 control-label" for="orderMode">Sort by:</label>
+                <div class="col-md-9 col-sm-7">
+                    <select ng-model="orderProp" id="orderMode" class="form-control input-sm">
+                        <option value="-year">Newest</option>
+                        <option value="year">Oldest</option>
+                    </select>
+                </div>
             </div>
-        </div>
+        </form>
+        <ul class="col-md-12 col-sm-12 col-xs-12 row">
+            <li ng-repeat="book in books | filter:query | orderBy:orderProp" class="list-unstyled col-md-4 col-sm-6 col-xs-6 bookItem">
+                <a href="#/book/{{book.id}}"><img ng-src="{{book.imgUrl}}" class="col-md-5 col-sm-5 col-xs-12"></a>
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                    <a href="#/book/{{book.id}}">{{book.name}}</a>
+                    <p class="hidden-xs">{{book.description}}</p>
+                </div>
+            </li>
+        </ul>
     </div>
-    <ul class="col-xs-12 col-md-12">
-        <li ng-repeat="book in books | filter:query | orderBy:orderProp" class="col-xs-4 col-md-4 bookItem">
-            <a href="#/book/{{book.id}}"><img ng-src="{{book.imgUrl}}" class="img-rounded col-xs-8 col-sm-4"></a>
-            <a href="#/book/{{book.id}}">{{book.name}}</a>
-            <p>{{book.description}}</p>
-        </li>
-    </ul>
 </div>
