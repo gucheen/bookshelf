@@ -1,0 +1,83 @@
+.bookItem.ng-enter,
+.bookItem.ng-leave,
+.bookItem.ng-move {
+    -webkit-transition: 1s linear opacity;
+    -moz-transition: 1s linear opacity;
+    -o-transition: 1s linear opacity;
+    transition: 1s linear opacity;
+}
+
+.bookItem.ng-enter,
+.bookItem.ng-move {
+    opacity: 0;
+    overflow: hidden;
+}
+
+.bookItem.ng-move.ng-move-active,
+.bookItem.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.bookItem.ng-leave {
+    opacity: 1;
+    overflow: hidden;
+}
+
+.bookItem.ng-leave.ng-leave-active {
+    opacity: 0;
+    height: 0;
+}
+
+.view-container {
+    position: relative;
+}
+
+.view-frame.ng-enter, .view-frame.ng-leave {
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.view-frame.ng-enter {
+    -webkit-animation: 0.5s fade-in;
+    -moz-animation: 0.5s fade-in;
+    -o-animation: 0.5s fade-in;
+    animation: 0.5s fade-in;
+    z-index: 100;
+}
+
+.view-frame.ng-leave {
+    -webkit-animation: 0.5s fade-out;
+    -moz-animation: 0.5s fade-out;
+    -o-animation: 0.5s fade-out;
+    animation: 0.5s fade-out;
+    z-index:99;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@-moz-keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@-webkit-keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@-moz-keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+@-webkit-keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
