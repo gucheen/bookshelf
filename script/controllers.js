@@ -1,7 +1,7 @@
 var bookshelfControllers = angular.module('bookshelfControllers',[]);
 bookshelfControllers.controller('bookListCtrl',['$scope','$http',
     function($scope,$http){
-        $http.get('books/books.json').success(function(data){
+        $http.get('admin/books/books.json').success(function(data){
             $scope.books = data;
         });
 
@@ -9,7 +9,7 @@ bookshelfControllers.controller('bookListCtrl',['$scope','$http',
 }]);
 
 bookshelfControllers.controller('bookDetailCtrl',['$scope','$routeParams','$http',function($scope,$routeParams,$http){
-    $http.get('books/' + $routeParams.bookId + '.json').success(function(data) {
+    $http.get('admin/books/detail/' + $routeParams.bookId + '.json').success(function(data) {
         $scope.book = data;
     });
 }]);

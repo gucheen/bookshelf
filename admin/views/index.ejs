@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#"><%= title %></a>
+        <p class="navbar-text"><%= description %></p>
+  	  </div>
+	</nav>
+    <div class="container">
+        <table class="table table-hover">
+            <thead><tr><th>Name</th><th>Thumbnail</th><th>Description</th><th>Year</th><th>Manage</th></tr></thead>
+            <tbody>
+            <% for(var i=0; i<list.length; i++) {%>
+            <tr>
+                <td><%= list[i]["name"] %></td>
+                <td><%= list[i]["imgUrl"] %></td>
+                <td><%= list[i]["description"] %></td>
+                <td><%= list[i]["year"] %></td>
+                <td>
+                    <button type="button" class="btn btn-primary">Edit</button>
+                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                </td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+        <hr />
+        <footer>
+        <p><a href="#" target="_blank">Guc</a> 2014</p>
+        </footer>
+    </div>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+  </body>
+</html>
