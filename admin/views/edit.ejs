@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/"><%= title %></a>
+    </div>
+</nav>
+<div class="container">
+    <h2><%= list["name"] %></h2>
+    <hr />
+    <img src="<%= '/'+list["img"] %>" alt="" class="col-md-3"/>
+    <div class="col-md-9">
+        <form role="form">
+            <div class="form-group">
+                <label for="name">Book's Name</label>
+                <input type="text" class="form-control" id="name" value="<%= list['name'] %>">
+            </div>
+            <div class="form-group">
+                <label for="description">Book's Description</label>
+                <input type="text" class="form-control" id="description" value="<%= list['description'] %>">
+            </div>
+            <div class="form-group">
+                <label for="note">Note</label>
+                <textarea name="note" id="note" class="form-control" cols="30" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <footer class="col-md-12">
+        <hr />
+        <p><a href="#" target="_blank">Guc</a> 2014</p>
+    </footer>
+</div>
+<script src="/javascripts/jquery.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+</body>
+</html>

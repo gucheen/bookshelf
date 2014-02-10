@@ -20,15 +20,18 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
-app.post('/e/:book', routes.edit);
+//app.get('/add', routes.add);
+//app.post('/add', routes.doAdd);
+app.get('/edit/:book', routes.edit);
+//app.get('/del/:book',routes.del);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

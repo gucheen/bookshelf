@@ -23,7 +23,7 @@
                 <td><%= list[i]["description"] %></td>
                 <td><%= list[i]["year"] %></td>
                 <td>
-                    <button type="button" class="btn btn-primary">Edit</button>
+                    <button type="button" value="<%= list[i]["id"]%>" class="btn btn-primary btn-sm editBtn">Edit</button>
                     <button type="button" class="btn btn-danger btn-sm">Delete</button>
                 </td>
             </tr>
@@ -37,5 +37,12 @@
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $('.editBtn').click(function(){
+                window.location.assign('/edit/' + $(this).val());
+            });
+        });
+    </script>
   </body>
 </html>
