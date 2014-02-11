@@ -16,14 +16,14 @@
         <table class="table table-hover">
             <thead><tr><th>Name</th><th>Thumbnail</th><th>Description</th><th>Year</th><th>Manage</th></tr></thead>
             <tbody>
-            <% for(var i=0; i<list.length; i++) {%>
+            <% for(item in list) {%>
             <tr>
-                <td><%= list[i]["name"] %></td>
-                <td><%= list[i]["imgUrl"] %></td>
-                <td><%= list[i]["description"] %></td>
-                <td><%= list[i]["year"] %></td>
+                <td><%= list[item]["name"] %></td>
+                <td><%= list[item]["imgUrl"] %></td>
+                <td><%= list[item]["description"] %></td>
+                <td><%= list[item]["year"] %></td>
                 <td>
-                    <button type="button" value="<%= list[i]["id"]%>" class="btn btn-primary btn-sm editBtn">Edit</button>
+                    <button type="button" value="<%= list[item]["id"]%>" class="btn btn-primary btn-sm editBtn">Edit</button>
                     <button type="button" class="btn btn-danger btn-sm">Delete</button>
                 </td>
             </tr>

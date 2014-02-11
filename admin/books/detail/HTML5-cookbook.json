@@ -1,5 +1,6 @@
 {
+	"id": "HTML5-cookbook",
     "name": "HTML5 Cookbook",
     "description": "What is HTML5?",
-    "img":"img/HTML5-cookbook.jpg"
+    "imgUrl":"img/HTML5-cookbook.jpg"
 }

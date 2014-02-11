@@ -21,6 +21,7 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
+app.use(express.bodyParser());
 
 // development only
 if ('development' == app.get('env')) {
@@ -31,6 +32,7 @@ app.get('/', routes.index);
 //app.get('/add', routes.add);
 //app.post('/add', routes.doAdd);
 app.get('/edit/:book', routes.edit);
+app.post('/edit/:book',routes.doEdit);
 //app.get('/del/:book',routes.del);
 
 http.createServer(app).listen(app.get('port'), function(){
