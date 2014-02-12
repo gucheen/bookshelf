@@ -12,7 +12,32 @@ exports.index = function(req, res){
 };
 
 exports.add = function(req,res){
-    res.render('add', {title: 'Admin Panel'});
+    res.render('add', {title: 'Admin Panel', description: 'Add a book'});
+};
+
+exports.doAdd = function(req,res){
+    var newBook = JSON.stringify(req.body.book);
+    var newID = req.body.book.id;
+    fs.open('books/detail/'+ newID +'.json',"a",0644,function(err,fd){
+        if(err) throw err;
+        fs.write(fd, newBook,0,'utf8',function(err){
+            if(err) throw err;
+            fs.closeSync(fd);
+        })
+    });
+    fs.readFile('books/books.json','utf-8',function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            var resource = JSON.parse(data);
+            resource[req.body.book.id] = req.body.book;
+            var newRes = JSON.stringify(resource);
+            fs.writeFile('books/books.json', newRes,function(err){
+                if (err) throw err;
+            })
+        }
+    });
+    res.redirect('/');
 };
 
 exports.edit = function(req,res){
@@ -21,7 +46,7 @@ exports.edit = function(req,res){
             console.log(err);
         }else{
             var resource = JSON.parse(data);
-            res.render('edit',{title:'Admin Panel', description:'Edit Book"s Information', list: resource});
+            res.render('edit',{title:'Admin Panel', description:'Edit book"s information', list: resource});
         }
     });
 };
@@ -47,5 +72,18 @@ exports.doEdit = function(req,res){
 };
 
 exports.del = function(req,res){
-
-}
+    fs.unlink('books/detail/'+ req.params['book'] +'.json');
+    fs.readFile('books/books.json','utf-8',function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            var resource = JSON.parse(data);
+            delete resource[req.params['book']];
+            var newRes = JSON.stringify(resource);
+            fs.writeFile('books/books.json', newRes,function(err){
+                if (err) throw err;
+            })
+        }
+    });
+    res.redirect('/');
+};
