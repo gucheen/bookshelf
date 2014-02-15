@@ -2,9 +2,9 @@ var bookshelfApp = angular.module('bookshelfApp',['ngRoute','bookshelfController
 bookshelfApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
-            when('/books', {
+    when('/books', {
         templateUrl: 'partials/book-list.html',
-            controller: 'bookListCtrl'
+        controller: 'bookListCtrl'
     }).
     when('/book/:bookId', {
         templateUrl: 'partials/book-detail.html',
@@ -13,4 +13,6 @@ bookshelfApp.config(['$routeProvider',
     otherwise({
         redirectTo: '/books'
     });
-    }]);
+}]);
+
+angular.module('bookshelfAnimations', ['ngAnimate']);

@@ -4,36 +4,3 @@
 .backBtn{
     margin-bottom: 10px;
 }
-.bookItem.ng-enter,
-.bookItem.ng-leave,
-.bookItem.ng-move {
-    -webkit-transition: 0.5s linear all;
-    -moz-transition: 0.5s linear all;
-    -o-transition: 0.5s linear all;
-    transition: 0.5s linear all;
-}
-
-.bookItem.ng-enter,
-.bookItem.ng-move {
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-}
-
-.bookItem.ng-move.ng-move-active,
-.bookItem.ng-enter.ng-enter-active {
-    opacity: 1;
-    height: 120px;
-}
-
-.bookItem.ng-leave {
-    opacity: 1;
-    overflow: hidden;
-}
-
-.bookItem.ng-leave.ng-leave-active {
-    opacity: 0;
-    height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-}

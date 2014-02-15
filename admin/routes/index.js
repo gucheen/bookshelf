@@ -1,14 +1,14 @@
 var fs = require('fs');
 
 exports.index = function(req, res){
-  fs.readFile('books/books.json','utf-8',function(err,data){
-  	if(err){
-  		console.log(err);
-  	}else{
-      var resource = JSON.parse(data);
-      res.render('index', { title: 'Admin Panel', description: 'This is admin panel of the bookshelf.', list: resource});
-    }
-  });
+    fs.readFile('books/books.json','utf-8',function(err,data){
+        if(err){
+            console.log(err);
+        }else{
+            var resource = JSON.parse(data);
+            res.render('index', { title: 'Admin Panel', description: 'This is admin panel of the bookshelf.', list: resource});
+        }
+    });
 };
 
 exports.add = function(req,res){
@@ -30,7 +30,7 @@ exports.doAdd = function(req,res){
             console.log(err);
         }else{
             var resource = JSON.parse(data);
-            resource[req.body.book.id] = req.body.book;
+            resource.push(req.body.book);
             var newRes = JSON.stringify(resource);
             fs.writeFile('books/books.json', newRes,function(err){
                 if (err) throw err;
@@ -61,7 +61,11 @@ exports.doEdit = function(req,res){
             console.log(err);
         }else{
             var resource = JSON.parse(data);
-            resource[req.params['book']] = req.body.book;
+            for(item in resource){
+                if(resource[item]['id'] === req.params['book']){
+                    resource[item] = req.body.book;
+                }
+            }
             var newRes = JSON.stringify(resource);
             fs.writeFile('books/books.json', newRes,function(err){
                 if (err) throw err;
@@ -78,7 +82,11 @@ exports.del = function(req,res){
             console.log(err);
         }else{
             var resource = JSON.parse(data);
-            delete resource[req.params['book']];
+            for(item in resource){
+                if(resource[item]['id'] === req.params['book']){
+                    delete resource[item];
+                }
+            }
             var newRes = JSON.stringify(resource);
             fs.writeFile('books/books.json', newRes,function(err){
                 if (err) throw err;
