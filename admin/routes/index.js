@@ -1,4 +1,5 @@
 var fs = require('fs');
+var https = require('https');
 
 exports.index = function(req, res){
     fs.readFile('books/books.json','utf-8',function(err,data){
@@ -38,6 +39,10 @@ exports.doAdd = function(req,res){
         }
     });
     res.redirect('/');
+};
+
+exports.addDB = function(req,res){
+    res.render('add_douban',{title:'Admin Panel', description:'Add a book from douban.com'});
 };
 
 exports.edit = function(req,res){

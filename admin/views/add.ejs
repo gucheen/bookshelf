@@ -16,16 +16,19 @@
     New information has been <strong>saved!</strong>
 </div>
 <div class="container">
-    <img src="/img/test-book.gif" alt="" class="col-md-3"/>
+    <img src="/img/test-book.gif" alt="" class="col-md-3" id="imgPreview"/>
     <div class="col-md-9">
         <form role="form" method="post" class="col-md-12">
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-6">
                 <label for="id">Book's ID</label>
-                <input type="text" class="form-control col-md-6" name="book[id]" id="id" value="">
+                <input type="text" class="form-control col-md-6" name="book[id]" id="id" value="" placeholder="You can input an ID of the book in douban.com">
             </div>
-            <div class="col-md-4">
-                <label for="createID">Give me a random code for ID</label>
-                <button id="createID" name="createID" class="btn btn-info">Create a random ID</button>
+            <div class="col-md-6">
+                <label for="createID">Create a random ID or get info from douban by ID</label>
+                <div class="btn-group">
+                    <button type="button" id="createID" name="createID" class="btn btn-info">Random ID</button>
+                    <button type="button" id="getInfo" class="btn btn-success">Douban it!</button>
+                </div>
             </div>
             <div class="form-group col-md-8">
                 <label for="name">Book's Name</label>
@@ -33,7 +36,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="year">Book's Publish Year</label>
-                <input type="number" class="form-control" name="book[year]" id="year" value="">
+                <input type="text" class="form-control" name="book[year]" id="year" value="">
             </div>
             <div class="form-group col-md-12">
                 <label for="description">Book's Description</label>
@@ -67,6 +70,21 @@
             var randomID = getRandomInt(11111,99999);
             $('#id').val('book-no-'+ randomID);
             $(e).val(randomID);
+        });
+        $('#getInfo').click(function(e){
+            var id = $('#id').val();
+            e.preventDefault();
+            $.ajax({url:'https://api.douban.com/v2/book/'+ id +'?fields=id,title,images,author,pubdate,summary,?apikey=0d0ddd1b987ff58827299752c97fe098',dataType: 'jsonp'  }).done(function(data){
+                $('#name').val(data['title']);
+                $('#year').val(data['pubdate']);
+                $('#description').val(data['author']);
+                $('#imgUrl').val(data['images']['large']);
+                $('#imgPreview').attr('src',data['images']['large']);
+                $('#note').val(data['summary']);
+            });
+        });
+        $('#imgUrl').change(function(){
+            $('#imgPreview').attr('src',$('#imgUrl').val());
         });
     });
 </script>

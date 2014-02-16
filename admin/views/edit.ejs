@@ -18,7 +18,7 @@
 <div class="container">
     <h2><%= list["name"] %></h2>
     <hr />
-    <img src="<%= '/'+list["imgUrl"] %>" alt="" class="col-md-3"/>
+    <img src="<%= list["imgUrl"] %>" alt="" class="col-md-3" id="imgPreview"/>
     <div class="col-md-9">
         <form role="form" method="post" class="col-md-12">
             <div class="form-group col-md-6 hidden">
@@ -55,5 +55,13 @@
 </div>
 <script src="/javascripts/jquery.min.js"></script>
 <script src="/javascripts/bootstrap.min.js"></script>
+<script>
+    $(function(){
+        $('#imgUrl').change(function(){
+            var newImg = $(this).val();
+            $('#imgPreview').attr('src', newImg);
+        });
+    });
+</script>
 </body>
 </html>
