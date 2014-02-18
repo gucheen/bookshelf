@@ -1,5 +1,4 @@
 var fs = require('fs');
-var https = require('https');
 
 exports.index = function(req, res){
     fs.readFile('books/books.json','utf-8',function(err,data){
@@ -87,11 +86,13 @@ exports.del = function(req,res){
             console.log(err);
         }else{
             var resource = JSON.parse(data);
-            for(item in resource){
-                if(resource[item]['id'] === req.params['book']){
-                    delete resource[item];
+            for(var i=0;i<=resource.length;i++){
+                if(resource[i]['id'] === req.params['book']){
+                    resource.splice(i,1);
+                    break;
                 }
             }
+            console.log(resource);
             var newRes = JSON.stringify(resource);
             fs.writeFile('books/books.json', newRes,function(err){
                 if (err) throw err;
