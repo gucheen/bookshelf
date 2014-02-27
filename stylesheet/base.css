@@ -1,5 +1,5 @@
 .bookItem{
-    margin-top: 20px;
+    min-height: 200px;
 }
 .backBtn{
     margin-bottom: 10px;

@@ -1,4 +1,4 @@
-var bookshelfApp = angular.module('bookshelfApp',['ngRoute','bookshelfControllers','bookshelfAnimations']);
+var bookshelfApp = angular.module('bookshelfApp',['ngRoute','bookshelfControllers','bookshelfAnimations','ngSanitize']);
 bookshelfApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.

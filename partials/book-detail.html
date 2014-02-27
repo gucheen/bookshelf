@@ -6,7 +6,7 @@
                 <div class="col-md-8 col-sm-8 col-xs-12">
                     <h2>{{book.name}}</h2>
                     <p><em>{{book.description}}</em></p>
-                    <p>{{book.note}}</p>
+                    <div ng-bind-html="book.note"></div>
                 </div>
             </div>
         </div>

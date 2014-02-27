@@ -92,7 +92,6 @@ exports.del = function(req,res){
                     break;
                 }
             }
-            console.log(resource);
             var newRes = JSON.stringify(resource);
             fs.writeFile('books/books.json', newRes,function(err){
                 if (err) throw err;
