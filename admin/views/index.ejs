@@ -19,25 +19,30 @@
         <table class="table table-hover">
             <thead><tr><th>Name</th><th>Thumbnail</th><th>Description</th><th>Year</th><th>Manage</th></tr></thead>
             <tbody>
-            <% for(var i=0;i<list.length;i++) {%>
-            <tr>
-                <td><%= list[i]["name"] %></td>
-                <td><%= list[i]["imgUrl"] %></td>
-                <td><%= list[i]["description"] %></td>
-                <td><%= list[i]["year"] %></td>
-                <td>
-                    <button type="button" value="<%= list[i]["id"]%>" class="btn btn-primary btn-sm editBtn">Edit</button>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-danger btn-sm delBtn dropdown-toggle" data-toggle="dropdown">
-                            Delete <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="/del/<%= list[i]["id"]%>" class="delLink">Delete It !</a></li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
+            <% if(list){ %>
+                <% for(i in list) {%>
+                <tr>
+                    <td><%= list[i]["name"] %></td>
+                    <td><%= list[i]["imgUrl"] %></td>
+                    <td><%= list[i]["description"] %></td>
+                    <td><%= list[i]["year"] %></td>
+                    <td>
+                        <button type="button" value="<%= list[i]["id"]%>" class="btn btn-primary btn-sm editBtn">Edit</button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger btn-sm delBtn dropdown-toggle" data-toggle="dropdown">
+                                Delete <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/del/<%= list[i]["id"]%>" class="delLink">Delete It !</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <% } %>
+            <% }else{ %>
+                <tr class="danger"><td colspan="5" style="text-align:center">You have no books.</td></tr>
             <% } %>
+
             </tbody>
         </table>
         <hr />

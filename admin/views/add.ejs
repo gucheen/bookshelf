@@ -92,8 +92,9 @@
         });
         $('#getInfo').click(function(e){
             var id = $('#id').val();
+            var dbAPIKey = '#You douban.com api key';
             e.preventDefault();
-            $.ajax({url:'https://api.douban.com/v2/book/'+ id +'?fields=id,title,images,author,pubdate,summary,?apikey=0d0ddd1b987ff58827299752c97fe098',dataType: 'jsonp'  }).done(function(data){
+            $.ajax({url:'https://api.douban.com/v2/book/'+ id +'?fields=id,title,images,author,pubdate,summary,?apikey='+ dbAPIKey,dataType: 'jsonp'  }).done(function(data){
                 $('#name').val(data['title']);
                 $('#year').val(data['pubdate']);
                 $('#description').val(data['author']);

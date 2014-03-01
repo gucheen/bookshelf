@@ -4,6 +4,7 @@ exports.index = function(req, res){
     fs.readFile('books/books.json','utf-8',function(err,data){
         if(err){
             console.log(err);
+            res.render('index', { title: 'Admin Panel', description: 'This is admin panel of the bookshelf.', list: null});
         }else{
             var resource = JSON.parse(data);
             res.render('index', { title: 'Admin Panel', description: 'This is admin panel of the bookshelf.', list: resource});
@@ -18,30 +19,38 @@ exports.add = function(req,res){
 exports.doAdd = function(req,res){
     var newBook = JSON.stringify(req.body.book);
     var newID = req.body.book.id;
-    fs.open('books/detail/'+ newID +'.json',"a",0644,function(err,fd){
+    fs.open('books/detail/'+ newID +'.json','w',0644,function(err,fd){
         if(err) throw err;
         fs.write(fd, newBook,0,'utf8',function(err){
             if(err) throw err;
             fs.closeSync(fd);
         })
     });
-    fs.readFile('books/books.json','utf-8',function(err,data){
-        if(err){
-            console.log(err);
+    fs.exists('books/books.json', function(exists){
+        if(exists){
+            fs.readFile('books/books.json', function(err,data){
+                var resource = JSON.parse(data);
+                resource[newID] = req.body.book;
+                var newRes = JSON.stringify(resource);
+                fs.writeFile('books/books.json', newRes,function(err){
+                    if (err) throw err;
+                })
+            })
         }else{
-            var resource = JSON.parse(data);
-            resource.push(req.body.book);
+            var resource = {};
+            resource[newID] = req.body.book;
             var newRes = JSON.stringify(resource);
-            fs.writeFile('books/books.json', newRes,function(err){
+            fs.open('books/books.json','w',0644,function(err,fd){
+                console.log(fd);
                 if (err) throw err;
+                fs.writeFile('books/books.json', newRes, function(err){
+                    if (err) throw err;
+                    fs.closeSync(fd);
+                })
             })
         }
     });
     res.redirect('/');
-};
-
-exports.addDB = function(req,res){
-    res.render('add_douban',{title:'Admin Panel', description:'Add a book from douban.com'});
 };
 
 exports.edit = function(req,res){
@@ -86,12 +95,8 @@ exports.del = function(req,res){
             console.log(err);
         }else{
             var resource = JSON.parse(data);
-            for(var i=0;i<=resource.length;i++){
-                if(resource[i]['id'] === req.params['book']){
-                    resource.splice(i,1);
-                    break;
-                }
-            }
+            var delID = req.params['book'];
+            delete resource[delID];
             var newRes = JSON.stringify(resource);
             fs.writeFile('books/books.json', newRes,function(err){
                 if (err) throw err;
