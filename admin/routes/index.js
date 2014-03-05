@@ -30,15 +30,15 @@ exports.doAdd = function(req,res){
         if(exists){
             fs.readFile('books/books.json', function(err,data){
                 var resource = JSON.parse(data);
-                resource[newID] = req.body.book;
+                resource.push(req.body.book);
                 var newRes = JSON.stringify(resource);
                 fs.writeFile('books/books.json', newRes,function(err){
                     if (err) throw err;
                 })
             })
         }else{
-            var resource = {};
-            resource[newID] = req.body.book;
+            var resource = [];
+            resource.push(req.body.book);
             var newRes = JSON.stringify(resource);
             fs.open('books/books.json','w',0644,function(err,fd){
                 console.log(fd);
@@ -74,9 +74,11 @@ exports.doEdit = function(req,res){
             console.log(err);
         }else{
             var resource = JSON.parse(data);
-            for(item in resource){
-                if(resource[item]['id'] === req.params['book']){
-                    resource[item] = req.body.book;
+            var editID = req.params['book'];
+            var i;
+            for(i=0;i<resource.length;i++){
+                if(resource[i]['id'] === editID){
+                    resource[i] = req.body.book;
                 }
             }
             var newRes = JSON.stringify(resource);
@@ -96,7 +98,12 @@ exports.del = function(req,res){
         }else{
             var resource = JSON.parse(data);
             var delID = req.params['book'];
-            delete resource[delID];
+            var i;
+            for(i=0;i<resource.length;i++){
+                if(resource[i]['id'] === delID){
+                    resource.splice(i,1);
+                }
+            }
             var newRes = JSON.stringify(resource);
             fs.writeFile('books/books.json', newRes,function(err){
                 if (err) throw err;

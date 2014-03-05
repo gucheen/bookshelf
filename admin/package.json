@@ -8,6 +8,6 @@
   "dependencies": {
     "express": "3.4.8",
     "ejs": "*",
-    "node-markdown": "^0.1.1"
+    "node-markdown": "^0.1.1",
   }
 }
