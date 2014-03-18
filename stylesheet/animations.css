@@ -1,10 +1,10 @@
 .bookItem.ng-enter,
 .bookItem.ng-leave,
 .bookItem.ng-move {
-    -webkit-transition: 1s linear opacity;
-    -moz-transition: 1s linear opacity;
-    -o-transition: 1s linear opacity;
-    transition: 1s linear opacity;
+    -webkit-transition: 0.5s linear opacity;
+    -moz-transition: 0.5s linear opacity;
+    -o-transition: 0.5s linear opacity;
+    transition: 0.5s linear opacity;
 }
 
 .bookItem.ng-enter,

@@ -1,13 +1,22 @@
 var fs = require('fs');
 
 exports.index = function(req, res){
+    var page_num = parseInt(req.params['page']);
     fs.readFile('books/books.json','utf-8',function(err,data){
         if(err){
             console.log(err);
             res.render('index', { title: 'Admin Panel', description: 'This is admin panel of the bookshelf.', list: null});
         }else{
             var resource = JSON.parse(data);
-            res.render('index', { title: 'Admin Panel', description: 'This is admin panel of the bookshelf.', list: resource});
+            var total_pages = (resource.length/10|0) + 1;
+            if(page_num){ 
+                var tem_num = (page_num-1)*10;
+                var page_res = resource.slice(tem_num,tem_num+10);
+                res.render('index', { title: 'Admin Panel', description: 'This is admin panel of the bookshelf.', list: page_res, pageNumber: page_num, pages: total_pages});
+            }else{
+                var page_res = resource.slice(0,10);
+                res.render('index', { title: 'Admin Panel', description: 'This is admin panel of the bookshelf.', list: page_res, pageNumber: 1, pages: total_pages});
+            };
         }
     });
 };
