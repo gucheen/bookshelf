@@ -6,16 +6,18 @@
   </head>
   <body>
     <nav class="navbar navbar-inverse" role="navigation">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#"><%= title %></a>
-        <p class="navbar-text"><%= description %></p>
-  	  </div>
+        <div class="navbar-header col-md-12">
+            <div class="col-md-9 pull-left">
+                <a class="navbar-brand" href="#"><%= title %></a>
+                <p class="navbar-text"><%= description %></p>
+            </div>
+            <div class="col-md-3 pull-right" style="margin-top: 8px">
+                <button class="btn btn-success" id="add">Add a new book</button>
+                <button class="btn btn-default" id="add">Manager images</button>
+            </div>
+        </div>
 	</nav>
     <div class="container">
-        <div class="pull-right">
-            <button class="btn btn-success" id="add">Add a new book</button>
-            <button class="btn btn-default" id="add">Manager images</button>
-        </div>
         <table class="table table-condensed table-hover">
             <thead><tr><th>Name</th><th>Thumbnail</th><th>Description</th><th>Year</th><th>Manage</th></tr></thead>
             <tbody>
@@ -44,27 +46,28 @@
 
             </tbody>
         </table>
-        <hr />
-        <ul class="pagination">
-            <% if(list){if(pageNumber == 1){ %>
-            <li class="disabled"><a href='#'>&laquo;</a></li>  
-            <% }else{ %>
-            <li><a href=<%= "/"+ (pageNumber-1) %>>&laquo;</a></li>
-            <% } %>
-            <%  for(var i=0;i<pages;i++){ 
-                    if(i == (pageNumber-1)){ %>
-                        <li class="active"><span><%= i+1 %> <span class="sr-only">(current)</span></span></li>
-                    <% }else{ %>
-                        <li><a href=<%= "/"+ (i+1) %>><%= i+1 %></a></li>
-                <% }}if(pageNumber == pages){ %>
-                    <li class="disabled"><a href='#'>&raquo;</a></li>
+        <div class="col-md-12">
+            <ul class="pagination">
+                <% if(list){if(pageNumber == 1){ %>
+                <li class="disabled"><a href='#'>&laquo;</a></li>  
                 <% }else{ %>
-                    <li><a href=<%= "/"+ (pageNumber+1) %>>&raquo;</a></li>    
-                <%  }} %>
-        </ul>
-        <footer>
-        <p><a href="#" target="_blank">Guc</a> 2014</p>
-        </footer>
+                <li><a href=<%= "/page/"+ (pageNumber-1) %>>&laquo;</a></li>
+                <% } %>
+                <%  for(var i=0;i<pages;i++){ 
+                        if(i == (pageNumber-1)){ %>
+                            <li class="active"><span><%= i+1 %> <span class="sr-only">(current)</span></span></li>
+                        <% }else{ %>
+                            <li><a href=<%= "/page/"+ (i+1) %>><%= i+1 %></a></li>
+                    <% }}if(pageNumber == pages){ %>
+                        <li class="disabled"><a href='#'>&raquo;</a></li>
+                    <% }else{ %>
+                        <li><a href=<%= "/page/"+ (pageNumber+1) %>>&raquo;</a></li>    
+                    <%  }} %>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a> 2014</p>
+        </div>
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>

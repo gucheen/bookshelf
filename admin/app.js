@@ -29,7 +29,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/:page', routes.index);
+app.get('/page/:page', routes.index);
 app.get('/add', routes.add);
 app.post('/add', routes.doAdd);
 app.get('/edit/:book', routes.edit);
