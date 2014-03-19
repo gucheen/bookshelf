@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-  </head>
-  <body>
-    <nav class="navbar navbar-inverse" role="navigation">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+</head>
+
+<body>
+    <nav class="navbar" role="navigation">
         <div class="navbar-header col-md-12">
             <div class="col-md-9 pull-left">
                 <a class="navbar-brand" href="#"><%= title %></a>
@@ -16,70 +19,82 @@
                 <button class="btn btn-default" id="add">Manager images</button>
             </div>
         </div>
-	</nav>
+    </nav>
     <div class="container">
         <table class="table table-condensed table-hover">
-            <thead><tr><th>Name</th><th>Thumbnail</th><th>Description</th><th>Year</th><th>Manage</th></tr></thead>
-            <tbody>
-            <% if(list){
-                for(var i=0;i<list.length;i++) {%>
+            <thead>
                 <tr>
-                    <td><%= list[i]["name"] %></td>
-                    <td><%= list[i]["imgUrl"] %></td>
-                    <td><%= list[i]["description"] %></td>
-                    <td><%= list[i]["year"] %></td>
-                    <td>
-                        <button type="button" value="<%= list[i]["id"]%>" class="btn btn-primary btn-sm editBtn">Edit</button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-danger btn-sm delBtn dropdown-toggle" data-toggle="dropdown">
-                                Delete <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="/del/<%= list[i]["id"]%>" class="delLink">Delete It !</a></li>
-                            </ul>
-                        </div>
-                    </td>
+                    <th>Name</th>
+                    <th>Thumbnail</th>
+                    <th>Description</th>
+                    <th>Year</th>
+                    <th>Manage</th>
                 </tr>
-                <% };}else{ %>
-                <tr class="danger"><td colspan="5" style="text-align:center">You have no books.</td></tr>
-            <% } %>
+            </thead>
+            <tbody>
+                <% if(list){ for(var i=0;i<list.length;i++) {%>
+                    <tr>
+                        <td><%= list[i]["name"] %></td>
+                        <td><%= list[i]["imgUrl"] %></td>
+                        <td><%= list[i]["description"] %></td>
+                        <td><%= list[i]["year"] %></td>
+                        <td>
+                            <button type="button" value="<%= list[i]["id"] %>" class="btn btn-primary btn-sm editBtn">Edit</button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger btn-sm delBtn dropdown-toggle" data-toggle="dropdown">
+                                    Delete
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="/del/<%= list[i][" id "]%>" class="delLink">Delete It !</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <% };}else{ %>
+                        <tr class="danger">
+                            <td colspan="5" style="text-align:center">You have no books.</td>
+                        </tr>
+                        <% } %>
 
             </tbody>
         </table>
         <div class="col-md-12">
             <ul class="pagination">
-                <% if(list){if(pageNumber == 1){ %>
-                <li class="disabled"><a href='#'>&laquo;</a></li>  
-                <% }else{ %>
-                <li><a href=<%= "/page/"+ (pageNumber-1) %>>&laquo;</a></li>
-                <% } %>
-                <%  for(var i=0;i<pages;i++){ 
-                        if(i == (pageNumber-1)){ %>
-                            <li class="active"><span><%= i+1 %> <span class="sr-only">(current)</span></span></li>
-                        <% }else{ %>
-                            <li><a href=<%= "/page/"+ (i+1) %>><%= i+1 %></a></li>
-                    <% }}if(pageNumber == pages){ %>
-                        <li class="disabled"><a href='#'>&raquo;</a></li>
+                <% if(list){if(pageNumber == 1 ){ %>
+                    <li class="disabled"><a href='#'>&laquo;</a></li>
                     <% }else{ %>
-                        <li><a href=<%= "/page/"+ (pageNumber+1) %>>&raquo;</a></li>    
-                    <%  }} %>
+                        <li><a href=<%="/page/" + (pageNumber-1) %>>&laquo;</a></li>
+                        <% } %>
+                            <% for(var i=0;i<pages;i++){ if(i==( pageNumber-1)){ %>
+                                <li class="active"><span><%=i +1 %><span class="sr-only">(current)</span></span></li>
+                                <% }else{ %>
+                                    <li><a href=<%="/page/" + (i+1) %>><%=i +1 %></a></li>
+                                    <% }}if(pageNumber == pages){ %>
+                                        <li class="disabled"><a href='#'>&raquo;</a></li>
+                                        <% }else{ %>
+                                            <li><a href=<%="/page/" + (pageNumber+1) %>>&raquo;</a></li>
+                                            <% }} %>
             </ul>
         </div>
         <div class="col-md-4">
-            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a> 2014</p>
+            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a>2014</p>
         </div>
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
     <script>
-        $(function(){
-            $('#add').click(function(){
+        $(function() {
+            $('#add').click(function() {
                 window.location.assign('/add');
             });
-            $('.editBtn').click(function(){
+            $('.editBtn').click(function() {
                 window.location.assign('/edit/' + $(this).val());
             });
         });
     </script>
-  </body>
+</body>
+
 </html>

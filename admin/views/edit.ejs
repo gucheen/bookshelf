@@ -1,69 +1,72 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title><%= title %></title>
+    <title>Edit: <%= list["name"] %></title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
+
 <body>
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="navbar-header col-md-12">
+    <nav class="navbar" role="navigation">
+        <div class="navbar-header col-md-12">
+            <div class="col-md-9">
+                <a class="navbar-brand" href="/">Edit: <%= list["name"] %></a>
+                <p class="navbar-text"><%= description %></p>
+            </div>
+        </div>
+    </nav>
+    <div id="editSuccess" class="alert alert-success alert-dismissable pull-right hidden">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        New information has been
+        <strong>saved!</strong>
+    </div>
+    <div class="container">
+        <img src="<%= list["imgUrl"] %>" alt="" class="col-md-3" id="imgPreview" />
         <div class="col-md-9">
-            <a class="navbar-brand" href="/"><%= title %></a>
-            <p class="navbar-text"><%= description %></p>
+            <form role="form" method="post" class="col-md-12">
+                <div class="form-group col-md-6 hidden">
+                    <label for="id">Book's ID</label>
+                    <input type="text" class="form-control" name="book[id]" id="id" value="<%= list['id'] %>">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="name">Book's Name</label>
+                    <input type="text" class="form-control" name="book[name]" id="name" value="<%= list['name'] %>">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="year">Book's Publish Year</label>
+                    <input type="text" class="form-control" name="book[year]" id="year" value="<%= list['year'] %>">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="description">Book's Description</label>
+                    <input type="text" class="form-control" name="book[description]" id="description" value="<%= list['description'] %>">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="img">Book's Image Url</label>
+                    <input type="text" class="form-control" name="book[imgUrl]" id="imgUrl" value="<%= list['imgUrl'] %>">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="note">Note</label>
+                    <textarea name="book[note]" id="note" class="form-control" cols="30" rows="10">
+                        <%= list["note"] %>
+                    </textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg pull-right">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a>2014</p>
         </div>
     </div>
-</nav>
-<div id="editSuccess" class="alert alert-success alert-dismissable pull-right hidden">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    New information has been <strong>saved!</strong>
-</div>
-<div class="container">
-    <h2><%= list["name"] %></h2>
-    <hr />
-    <img src="<%= list["imgUrl"] %>" alt="" class="col-md-3" id="imgPreview"/>
-    <div class="col-md-9">
-        <form role="form" method="post" class="col-md-12">
-            <div class="form-group col-md-6 hidden">
-                <label for="id">Book's ID</label>
-                <input type="text" class="form-control" name="book[id]" id="id" value="<%= list['id'] %>">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="name">Book's Name</label>
-                <input type="text" class="form-control" name="book[name]" id="name" value="<%= list['name'] %>">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="year">Book's Publish Year</label>
-                <input type="text" class="form-control" name="book[year]" id="year" value="<%= list['year'] %>">
-            </div>
-            <div class="form-group col-md-12">
-                <label for="description">Book's Description</label>
-                <input type="text" class="form-control" name="book[description]" id="description" value="<%= list['description'] %>">
-            </div>
-            <div class="form-group col-md-12">
-                <label for="img">Book's Image Url</label>
-                <input type="text" class="form-control" name="book[imgUrl]" id="imgUrl" value="<%= list['imgUrl'] %>">
-            </div>
-            <div class="form-group col-md-12">
-                <label for="note">Note</label>
-                <textarea name="book[note]" id="note" class="form-control" cols="30" rows="5"><%= list['note'] %></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary pull-right">Submit</button>
-        </form>
-    </div>
-    <footer class="col-md-12">
-        <hr />
-        <p><a href="#" target="_blank">Guc</a> 2014</p>
-    </footer>
-</div>
-<script src="/javascripts/jquery.min.js"></script>
-<script src="/javascripts/bootstrap.min.js"></script>
-<script>
-    $(function(){
-        $('#imgUrl').change(function(){
-            var newImg = $(this).val();
-            $('#imgPreview').attr('src', newImg);
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+            $('#imgUrl').change(function() {
+                var newImg = $(this).val();
+                $('#imgPreview').attr('src', newImg);
+            });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>

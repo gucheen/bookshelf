@@ -26,7 +26,7 @@ exports.index = function(req, res){
 };
 
 exports.add = function(req,res){
-    res.render('add', {title: 'Admin Panel', description: 'Add a book'});
+    res.render('add', {title: 'Adding A New Book', description: 'Add a book'});
 };
 
 exports.doAdd = function(req,res){

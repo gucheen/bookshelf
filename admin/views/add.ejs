@@ -1,114 +1,120 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
+
 <body>
-<nav class="navbar navbar-inverse" role="navigation">
-    <div class="navbar-header col-md-12">
+    <nav class="navbar" role="navigation">
+        <div class="navbar-header col-md-12">
+            <div class="col-md-9">
+                <a class="navbar-brand" href="/"><%= title %></a>
+                <p class="navbar-text"><%= description %></p>
+            </div>
+        </div>
+    </nav>
+    <div id="editSuccess" class="alert alert-success alert-dismissable pull-right hidden">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        New information has been
+        <strong>saved!</strong>
+    </div>
+    <div class="container">
+        <img src="/img/test-book.gif" alt="" class="col-md-3" id="imgPreview" />
         <div class="col-md-9">
-            <a class="navbar-brand" href="/"><%= title %></a>
-            <p class="navbar-text"><%= description %></p>
+            <form role="form" method="post" class="col-md-12">
+                <div class="form-group col-md-6">
+                    <label for="id">Book's ID</label>
+                    <input type="text" class="form-control col-md-6" name="book[id]" id="id" value="" placeholder="You can input an ID of the book in douban.com">
+                </div>
+                <div class="col-md-6">
+                    <label for="createID">Create a random ID or get info from douban by ID</label>
+                    <div class="btn-group">
+                        <button type="button" id="createID" name="createID" class="btn btn-info">Random ID</button>
+                        <button type="button" id="getInfo" class="btn btn-success">Douban it!</button>
+                    </div>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="name">Book's Name</label>
+                    <input type="text" class="form-control" name="book[name]" id="name" value="">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="year">Book's Publish Year</label>
+                    <input type="text" class="form-control" name="book[year]" id="year" value="">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="description">Book's Description</label>
+                    <input type="text" class="form-control" name="book[description]" id="description" value="">
+                </div>
+                <div class="form-group col-md-9">
+                    <label for="img">Book's Image Url</label>
+                    <input type="text" class="form-control" name="book[imgUrl]" id="imgUrl" value="">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="upImg">Upload images</label>
+                    <button class="btn btn-primary form-control" id="upImg" data-toggle="modal" data-target="#upImgBody">Upload</button>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="note">Note</label>
+                    <textarea name="book[note]" id="note" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg pull-right">Submit</button>
+            </form>
         </div>
-    </div>
-</nav>
-<div id="editSuccess" class="alert alert-success alert-dismissable pull-right hidden">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    New information has been <strong>saved!</strong>
-</div>
-<div class="container">
-    <img src="/img/test-book.gif" alt="" class="col-md-3" id="imgPreview"/>
-    <div class="col-md-9">
-        <form role="form" method="post" class="col-md-12">
-            <div class="form-group col-md-6">
-                <label for="id">Book's ID</label>
-                <input type="text" class="form-control col-md-6" name="book[id]" id="id" value="" placeholder="You can input an ID of the book in douban.com">
-            </div>
-            <div class="col-md-6">
-                <label for="createID">Create a random ID or get info from douban by ID</label>
-                <div class="btn-group">
-                    <button type="button" id="createID" name="createID" class="btn btn-info">Random ID</button>
-                    <button type="button" id="getInfo" class="btn btn-success">Douban it!</button>
-                </div>
-            </div>
-            <div class="form-group col-md-8">
-                <label for="name">Book's Name</label>
-                <input type="text" class="form-control" name="book[name]" id="name" value="">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="year">Book's Publish Year</label>
-                <input type="text" class="form-control" name="book[year]" id="year" value="">
-            </div>
-            <div class="form-group col-md-12">
-                <label for="description">Book's Description</label>
-                <input type="text" class="form-control" name="book[description]" id="description" value="">
-            </div>
-            <div class="form-group col-md-9">
-                <label for="img">Book's Image Url</label>
-                <input type="text" class="form-control" name="book[imgUrl]" id="imgUrl" value="">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="upImg">Upload images</label>
-                <button class="btn btn-primary form-control" id="upImg" data-toggle="modal" data-target="#upImgBody">Upload</button>
-            </div>
-            <div class="form-group col-md-12">
-                <label for="note">Note</label>
-                <textarea name="book[note]" id="note" class="form-control" cols="30" rows="5"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary pull-right">Submit</button>
-        </form>
-    </div>
-    <div class="modal fade" id="upImgBody" tabindex="-1" role="dialog" aria-labelledby="upImgBodyLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Uploader</h4>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        <div class="modal fade" id="upImgBody" tabindex="-1" role="dialog" aria-labelledby="upImgBodyLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Uploader</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a>2014</p>
+        </div>
     </div>
-    <footer class="col-md-12">
-        <hr />
-        <p><a href="#" target="_blank">Guc</a> 2014</p>
-    </footer>
-</div>
-<script src="/javascripts/jquery.min.js"></script>
-<script src="/javascripts/bootstrap.min.js"></script>
-<script>
-    $(function(){
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-        $('#createID').click(function(e){
-            e.preventDefault();
-            var randomID = getRandomInt(11111,99999);
-            $('#id').val('book-no-'+ randomID);
-            $(e).val(randomID);
-        });
-        $('#getInfo').click(function(e){
-            var id = $('#id').val();
-            var dbAPIKey = '#You douban.com api key';
-            e.preventDefault();
-            $.ajax({url:'https://api.douban.com/v2/book/'+ id +'?fields=id,title,images,author,pubdate,summary,?apikey='+ dbAPIKey,dataType: 'jsonp'  }).done(function(data){
-                $('#name').val(data['title']);
-                $('#year').val(data['pubdate']);
-                $('#description').val(data['author']);
-                $('#imgUrl').val(data['images']['large']);
-                $('#imgPreview').attr('src',data['images']['large']);
-                $('#note').val(data['summary']);
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1) + min);
+            }
+            $('#createID').click(function(e) {
+                e.preventDefault();
+                var randomID = getRandomInt(11111, 99999);
+                $('#id').val('book-no-' + randomID);
+                $(e).val(randomID);
+            });
+            $('#getInfo').click(function(e) {
+                var id = $('#id').val();
+                var dbAPIKey = '#You douban.com api key'; // Your douban.com developers' api here;
+                e.preventDefault();
+                $.ajax({
+                    url: 'https://api.douban.com/v2/book/' + id + '?fields=id,title,images,author,pubdate,summary,?apikey=' + dbAPIKey,
+                    dataType: 'jsonp'
+                }).done(function(data) {
+                    $('#name').val(data['title']);
+                    $('#year').val(data['pubdate']);
+                    $('#description').val(data['author']);
+                    $('#imgUrl').val(data['images']['large']);
+                    $('#imgPreview').attr('src', data['images']['large']);
+                    $('#note').val(data['summary']);
+                });
+            });
+            $('#imgUrl').change(function() {
+                $('#imgPreview').attr('src', $('#imgUrl').val());
             });
         });
-        $('#imgUrl').change(function(){
-            $('#imgPreview').attr('src',$('#imgUrl').val());
-        });
-    });
-</script>
+    </script>
 </body>
+
 </html>
