@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
 </head>
 
 <body>
     <nav class="navbar" role="navigation">
         <div class="navbar-header col-md-12">
-            <div class="col-md-9 pull-left">
-                <a class="navbar-brand" href="#"><%= title %></a>
+            <div class="col-md-8 pull-left">
+                <a class="navbar-brand" href="/"><%= title %></a>
                 <p class="navbar-text"><%= description %></p>
             </div>
-            <div class="col-md-3 pull-right" style="margin-top: 8px">
+            <div class="col-md-4 pull-right" style="margin-top: 8px">
                 <a class="btn btn-success" id="add" href="/add">Add a new book</a>
+                <a class="btn btn-default">Search</a>
                 <a class="btn btn-default" href="/pic">Manager images</a>
             </div>
         </div>
@@ -25,8 +29,8 @@
                 <tr>
                     <th>Name</th>
                     <th>Thumbnail</th>
-                    <th>Description</th>
-                    <th>Year</th>
+                    <th>Author</th>
+                    <th id="li-th-year">Year <i class="fa fa-sort"></i></th>
                     <th>Manage</th>
                 </tr>
             </thead>
@@ -60,9 +64,9 @@
 
             </tbody>
         </table>
-        <div class="col-md-12">
+        <div class="col-md-8">
             <ul class="pagination">
-                <% if(list && list.length > 10){if(pageNumber == 1 ){ %>
+                <% if(list && pages > 1){if(pageNumber == 1){ %>
                     <li class="disabled"><a href='#'>&laquo;</a></li>
                     <% }else{ %>
                         <li><a href=<%="/page/" + (pageNumber-1) %>>&laquo;</a></li>
@@ -79,11 +83,16 @@
             </ul>
         </div>
         <div class="col-md-4">
-            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a>2014</p>
+            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a> 2014</p>
+            <p><a href="/logout">Logout</a></p>
         </div>
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <script>
+        var sort_by_year = document.getElementById('li-th-year');
+        sort_by_year.addEventListener('click',function(){window.location.assign('?sort=year')});
+    </script>
 </body>
 
 </html>

@@ -56,15 +56,13 @@
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
-    <script src="/javascripts/module.js"></script>
-    <script src="/javascripts/uploader.js"></script>
-    <script src="/javascripts/simditor.js"></script>
+    <script src="/javascripts/simditor-all.min.js"></script>
     <script>
         $(function() {
             var editor = new Simditor({
                 textarea: $('#note'),
                 placeholder: 'Input your note here ...',
-				pasteImage: true,
+				pasteImage: true
             });
             $('#imgUrl').change(function() {
                 var newImg = $(this).val();

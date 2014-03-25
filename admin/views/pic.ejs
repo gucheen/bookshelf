@@ -5,6 +5,13 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/base.css">
+    <style>
+        #holder { border: 10px dashed #ccc; width: 300px; min-height: 300px; margin: 10px auto;}
+        #holder img { display: block; margin: 10px auto; }
+        #holder p { margin: 10px; font-size: 30px; }
+        .fail { background: #c00; padding: 2px; color: #fff; }
+        .hidden { display: none !important;}
+    </style>
 </head>
 
 <body>
@@ -17,12 +24,109 @@
         </div>
     </nav>
     <div class="container">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <article>
+                    <div id="holder"><p>拖拽到这里上传</p></div>
+                    <p id="upload" class="hidden"><label>Drag &amp; drop not supported, but you can still upload via this input field:<br><input type="file"></label></p>
+                    <p id="filereader">File API &amp; FileReader API not supported</p>
+                </article>
+            </div>
+            <div class="col-md-8">
+                <ul id="img-list" class="list-unstyled">
+                    <% if(picList){for(var i=0;i<picList.length;i++){%>
+                            <li class="imgs"><img src="/uploads/<%= picList[i] %>" alt="<%= picList[i] %>" class="col-md-2 img-thumbnail"></li>
+                    <% };} %>
+                </ul>
+            </div>
+        </div>
         <div class="col-md-4">
-            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a>2014</p>
+            <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a> 2014</p>
         </div>
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <script>
+        var holder = $('#holder'),
+            tests = {
+                filereader: typeof FileReader != 'undefined',
+                dnd: 'draggable' in document.createElement('span'),
+                formdata: !!window.FormData
+            },
+            support = {
+                filereader: $('#filereader'),
+                formdata: $('#formdata')
+            },
+            acceptedTypes = {
+                'image/png': true,
+                'image/jpeg': true,
+                'image/gif': true
+            };
+        "filereader formdata".split(' ').forEach(function (api) {
+            if (tests[api] === false) {
+                support[api].addClass('fail');
+            } else {
+                support[api].addClass('hidden');
+            }
+        });
+        function previewfile(file) {
+            if (tests.filereader === true && acceptedTypes[file.type] === true) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var image = new Image();
+                    image.src = event.target.result;
+                    image.width = 220;
+                    holder.append(image);
+                };
+
+                reader.readAsDataURL(file);
+            }  else {
+                holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+                console.log(file);
+            }
+        }
+        function sendFileToServer(formData){
+            var uploadURL ='/pic';
+            $.ajax({
+                url: uploadURL,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                cache: false,
+                data: formData,
+                success: function(data){
+                    if(data.status === 200){
+                        var new_img = '<li><img src="/uploads/'+ data.filePath +'" alt="'+ data.filePath +'" class="col-md-2 img-thumbnail"></li>';
+                        $('#img-list').append(new_img);
+                    }
+                }
+            });
+
+        }
+        function handleFileUpload(files) {
+            for (var i = 0; i < files.length; i++) {
+                var fd = new FormData();
+                fd.append('file'+i, files[i]);
+                previewfile(files[i]);
+                sendFileToServer(fd);
+            }
+        }
+        holder.on('dragenter', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            $(this).css('border', '10px dashed #0c0');
+        });
+        holder.on('dragover', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+        holder.on('drop', function (e) {
+            $(this).css('border', '10px dashed #0c0');
+            e.preventDefault();
+            var files = e.originalEvent.dataTransfer.files;
+            handleFileUpload(files);
+        });
+    </script>
 </body>
 
 </html>

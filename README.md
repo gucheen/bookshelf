@@ -1,6 +1,6 @@
 bookshelf
 =========
-It's bookshelf of Guc.
+It's the bookshelf of Guc.
 
 Intro
 -----
@@ -10,6 +10,6 @@ Intro
 
 Todo
 ----
-1. 完善图片上传和管理功能。
+1. 完善图片管理功能。
 2. 页面美化。
 3. 完善在豆瓣图书搜索的功能

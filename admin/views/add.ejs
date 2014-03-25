@@ -65,9 +65,7 @@
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
-    <script src="/javascripts/module.js"></script>
-    <script src="/javascripts/uploader.js"></script>
-    <script src="/javascripts/simditor.js"></script>
+    <script src="/javascripts/simditor-all.min.js"></script>
     <script>
         $(function() {
             var editor = new Simditor({
@@ -89,16 +87,21 @@
                 var dbAPIKey = '#You douban.com api key'; // Your douban.com developers' api here;
                 e.preventDefault();
                 $.ajax({
+                    type: 'GET',
                     url: 'https://api.douban.com/v2/book/' + id + '?fields=id,title,images,author,pubdate,summary,?apikey=' + dbAPIKey,
-                    dataType: 'jsonp'
-                }).done(function(data) {
-                    $('#name').val(data['title']);
-                    $('#year').val(data['pubdate']);
-                    $('#description').val(data['author']);
-                    $('#imgUrl').val(data['images']['large']);
-                    $('#imgPreview').attr('src', data['images']['large']);
-                    $('.simditor-placeholder').hide();
-                    $('.simditor-body').html(data['summary']);
+                    dataType: 'JSONP',
+                    success: function(data) {
+                                $('#name').val(data['title']);
+                                $('#year').val(data['pubdate']);
+                                $('#description').val(data['author']);
+                                $('#imgUrl').val(data['images']['large']);
+                                $('#imgPreview').attr('src', data['images']['large']);
+                                $('.simditor-placeholder').hide();
+                                $('.simditor-body').html(data['summary']);
+                            },
+                    error: function(){
+                                console.log('something wrong');
+                            }
                 });
             });
             $('#imgUrl').change(function() {
