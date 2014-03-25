@@ -3,7 +3,7 @@
     <div class="row">
         <form class="form-horizontal col-md-12 col-sm-12" role="form">
             <div class="form-group col-md-6 col-sm-8">
-                <label class="col-md-2 col-sm-2 col-xs-2 control-label" for="bookSearch">Search: </label>
+                <label class="col-md-2 col-sm-2 col-xs-2 control-label" for="bookSearch">Search:</label>
                 <div class="col-md-9 col-sm-9 col-xs-9">
                     <input type="text" ng-model="query" class="form-control input-sm" id="bookSearch" placeholder="Quick filter with book's name or description.">
                 </div>
@@ -20,7 +20,9 @@
         </form>
         <ul class="col-md-12 col-sm-12 col-xs-12 row">
             <li ng-repeat="book in books | filter:query | orderBy:orderProp" class="list-unstyled col-md-4 col-sm-6 col-xs-6 bookItem">
-                <a href="#/book/{{book.id}}"><img ng-src="{{book.imgUrl}}" class="col-md-5 col-sm-5 col-xs-12"></a>
+                <a href="#/book/{{book.id}}">
+                    <img ng-src="{{book.imgUrl}}" class="col-md-5 col-sm-5 col-xs-12">
+                </a>
                 <div class="col-md-7 col-sm-7 col-xs-12">
                     <a href="#/book/{{book.id}}">{{book.name}}</a>
                     <p class="hidden-xs">{{book.description}}</p>
@@ -28,11 +30,22 @@
             </li>
         </ul>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" ng-class="{hidden: hidePagi}">
         <ul class="pagination">
-            <li ng-class="lDisabled"><a href="#/page/{{pageNum - 1}}">&laquo;</a></li>
-            <li ng-repeat="page in pagination"><a href="#/page/{{page}}">{{page}}</a></li>
-            <li ng-class="rDisabled"><a href="#/page/{{pageNum + 1}}">&raquo;</a></li>
+            <li ng-class="lDisabled">
+                <a href="#/page/{{pageNum - 1}}">&laquo;</a>
+            </li>
+            <li ng-repeat="page in pagination">
+                <a href="#/page/{{page}}">{{page}}</a>
+            </li>
+            <li ng-class="rDisabled">
+                <a href="#/page/{{pageNum + 1}}">&raquo;</a>
+            </li>
         </ul>
     </div>
+</div>
+<div id="footer" class="col-md-2 col-md-offset-5">
+    <p>Bookshelf © Guc 2014.
+        <a href="http://127.0.0.1:3001">Admin</a>
+    </p>
 </div>

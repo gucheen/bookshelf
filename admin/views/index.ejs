@@ -4,7 +4,6 @@
 <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/base.css">
 </head>
 
 <body>
@@ -15,8 +14,8 @@
                 <p class="navbar-text"><%= description %></p>
             </div>
             <div class="col-md-3 pull-right" style="margin-top: 8px">
-                <button class="btn btn-success" id="add">Add a new book</button>
-                <button class="btn btn-default" id="add">Manager images</button>
+                <a class="btn btn-success" id="add" href="/add">Add a new book</a>
+                <a class="btn btn-default" href="/pic">Manager images</a>
             </div>
         </div>
     </nav>
@@ -39,7 +38,7 @@
                         <td><%= list[i]["description"] %></td>
                         <td><%= list[i]["year"] %></td>
                         <td>
-                            <button type="button" value="<%= list[i]["id"] %>" class="btn btn-primary btn-sm editBtn">Edit</button>
+                            <a type="button" class="btn btn-primary btn-sm editBtn" href="/edit/<%= list[i]["id"] %>">Edit</a>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-danger btn-sm delBtn dropdown-toggle" data-toggle="dropdown">
                                     Delete
@@ -47,7 +46,7 @@
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="/del/<%= list[i][" id "]%>" class="delLink">Delete It !</a>
+                                        <a href="/del/<%= list[i]["id"]%>" class="delLink">Delete It !</a>
                                     </li>
                                 </ul>
                             </div>
@@ -63,7 +62,7 @@
         </table>
         <div class="col-md-12">
             <ul class="pagination">
-                <% if(list){if(pageNumber == 1 ){ %>
+                <% if(list && list.length > 10){if(pageNumber == 1 ){ %>
                     <li class="disabled"><a href='#'>&laquo;</a></li>
                     <% }else{ %>
                         <li><a href=<%="/page/" + (pageNumber-1) %>>&laquo;</a></li>
@@ -85,16 +84,6 @@
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
-    <script>
-        $(function() {
-            $('#add').click(function() {
-                window.location.assign('/add');
-            });
-            $('.editBtn').click(function() {
-                window.location.assign('/edit/' + $(this).val());
-            });
-        });
-    </script>
 </body>
 
 </html>

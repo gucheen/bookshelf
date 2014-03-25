@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -11,7 +10,7 @@ var path = require('path');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -33,9 +32,11 @@ app.get('/page/:page', routes.index);
 app.get('/add', routes.add);
 app.post('/add', routes.doAdd);
 app.get('/edit/:book', routes.edit);
-app.post('/edit/:book',routes.doEdit);
-app.get('/del/:book',routes.del);
+app.post('/edit/:book', routes.doEdit);
+app.get('/del/:book', routes.del);
+app.get('/pic', routes.pic);
+app.post('/pic', routes.addPic);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
 });

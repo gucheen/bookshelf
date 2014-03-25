@@ -4,6 +4,8 @@
 <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/simditor.css">
 </head>
 
 <body>
@@ -15,15 +17,10 @@
             </div>
         </div>
     </nav>
-    <div id="editSuccess" class="alert alert-success alert-dismissable pull-right hidden">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        New information has been
-        <strong>saved!</strong>
-    </div>
     <div class="container">
-        <img src="/img/test-book.gif" alt="" class="col-md-3" id="imgPreview" />
-        <div class="col-md-9">
-            <form role="form" method="post" class="col-md-12">
+        <form id="book-info" role="form" method="post" class="col-md-12">
+            <img src="/img/test-book.gif" alt="" class="col-md-3" id="imgPreview" />
+            <div class="col-md-9">
                 <div class="form-group col-md-6">
                     <label for="id">Book's ID</label>
                     <input type="text" class="form-control col-md-6" name="book[id]" id="id" value="" placeholder="You can input an ID of the book in douban.com">
@@ -53,38 +50,31 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="upImg">Upload images</label>
-                    <button class="btn btn-primary form-control" id="upImg" data-toggle="modal" data-target="#upImgBody">Upload</button>
+                    <button class="btn btn-primary form-control" id="upImg">Upload</button>
                 </div>
-                <div class="form-group col-md-12">
-                    <label for="note">Note</label>
-                    <textarea name="book[note]" id="note" class="form-control" cols="30" rows="10"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg pull-right">Submit</button>
-            </form>
-        </div>
-        <div class="modal fade" id="upImgBody" tabindex="-1" role="dialog" aria-labelledby="upImgBodyLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Uploader</h4>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                    </div>
-                </div>
+                <button id="add-book" type="submit" class="btn btn-primary btn-lg pull-right">Submit</button>
             </div>
-        </div>
+            <div class="col-md-12">
+                <h3>Note</h3>
+                <textarea name="book[note]" id="note" data-autosave="editor-content"></textarea>
+            </div>
+        </form>
         <div class="col-md-4">
             <p>Bookshelf © <a href="http://www.gucheen.pro" target="_blank">Guc</a>2014</p>
         </div>
     </div>
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/module.js"></script>
+    <script src="/javascripts/uploader.js"></script>
+    <script src="/javascripts/simditor.js"></script>
     <script>
         $(function() {
+            var editor = new Simditor({
+                textarea: $('#note'),
+                placeholder: 'Input your note here ...',
+				pasteImage: true,
+            });
             function getRandomInt(min, max) {
                 return Math.floor(Math.random() * (max - min + 1) + min);
             }
@@ -107,11 +97,18 @@
                     $('#description').val(data['author']);
                     $('#imgUrl').val(data['images']['large']);
                     $('#imgPreview').attr('src', data['images']['large']);
-                    $('#note').val(data['summary']);
+                    $('.simditor-placeholder').hide();
+                    $('.simditor-body').html(data['summary']);
                 });
             });
             $('#imgUrl').change(function() {
                 $('#imgPreview').attr('src', $('#imgUrl').val());
+            });
+            $('#add-book').click(function(e){
+                e.preventDefault();
+                if($('#id').val() && $('#name').val()){
+                    $('#book-info').submit();
+                }
             });
         });
     </script>
